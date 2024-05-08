@@ -16,6 +16,9 @@
             width: 200px;
             background-color: #f0f0f0;
             padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.8); /* Add box shadow */
+            overflow-y: auto; /* Make the menu scrollable */
+            max-height: calc(100vh - 40px); /* Set max height */
         }
 
         #content {
@@ -33,6 +36,12 @@
             overflow: auto;
             max-height: calc(70vh - 40px);
         }
+        #content > div {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.8); /* Add box shadow */
+            border: 1px solid #ccc; /* Add border */
+            padding: 10px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -44,9 +53,14 @@
     <button id="ref">View Referees</button>
     <button id="refmax">Who has appeared maximum times as referee for last 2 seasons</button>
     <button id="refmin">Who has appeared minimum times as referee for last 2 seasons</button>
+    <button id="allmatches">All matches with winners</button>
+    <button id="winsbyteam">Wins by each team</button>
 </div>
 <div id="content">
-    <h1>FPL statistics</h1>
+    <div>
+        <h1>FPL statistics</h1>
+    </div>
+
     <h3 id="ans" >Click any of the above buttons to start analysing FPL</h3>
 </div>
 
@@ -61,6 +75,8 @@
     ref = document.getElementById("ref")
     refmax = document.getElementById("refmax")
     refmin = document.getElementById("refmin")
+    allmatches = document.getElementById("allmatches")
+    winsbyteam = document.getElementById("winsbyteam")
     tot.addEventListener("click", function (){
         ans.textContent="Total Matches = {{tot_matches}}"
     })
@@ -92,6 +108,12 @@
     refmin.addEventListener("click",function (){
          ans.textContent = "Referees with minimum appearances: {{ minrefs }} with {{ mins }} appearances"
     })
+    allmatches.addEventListener("click", function () {
+    ans.innerHTML = "{% for y in ye %}{{ y }}<br></br>{% endfor %}";
+});
 
+    winsbyteam.addEventListener('click', function(){
+        ans.innerHTML = "{% for k,y in winsbyteam.items %}{{ k }} - {{ y }} wins<br></br>{% endfor %}"
+    })
 </script>
 </html>
