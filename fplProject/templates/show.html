@@ -3,8 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #menu {
+            width: 200px;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        #content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        #menu button {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
+            height: 50px;
+        }
+        #ans {
+            overflow: auto;
+            max-height: calc(70vh - 40px);
+        }
+    </style>
 </head>
 <body>
+<div id="menu">
+    <button id="tot">Total number of matches</button>
+    <button id="feat">Total number of features</button>
+    <button id="wh">Total number of wins by teams at home</button>
+    <button id="wr">Home Win Rate</button>
+    <button id="ref">View Referees</button>
+    <button id="refmax">Who has appeared maximum times as referee for last 2 seasons</button>
+    <button id="refmin">Who has appeared minimum times as referee for last 2 seasons</button>
+</div>
+<div id="content">
+    <h1>FPL statistics</h1>
+    <h3 id="ans" >Click any of the above buttons to start analysing FPL</h3>
+</div>
 
 </body>
+
+<script>
+    ans = document.getElementById("ans")
+    tot = document.getElementById("tot")
+    feet = document.getElementById("feat")
+    wh = document.getElementById("wh")
+    wr = document.getElementById("wr")
+    ref = document.getElementById("ref")
+    refmax = document.getElementById("refmax")
+    refmin = document.getElementById("refmin")
+    tot.addEventListener("click", function (){
+        ans.textContent="Total Matches = {{tot_matches}}"
+    })
+
+    feet.addEventListener("click",function (){
+        ans.textContent="Total Features = {{features}}"
+    })
+    wh.addEventListener("click",function (){
+        ans.textContent="Wins at Home = {{wins_at_home}}"
+    })
+    wr.addEventListener("click",function (){
+        ans.textContent="Homewin Rate = {{homewin_rate}}"
+    })
+    ref.addEventListener("click",function (){
+        {% if referees %}
+            ans.innerHTML=""
+            var i=0
+            {% for referee in referees %}
+                 i++
+                 ans.innerHTML+=i+": {{ referee }}<br></br>"
+            {% endfor %}
+        {% endif %}
+        {#ans.textContent = "Referees = {{ ref }}"#}
+    })
+
+    refmax.addEventListener("click",function (){
+        ans.textContent = "Referees with maximum appearances: {{ maxrefs }} with {{ maxs }} appearances"
+    })
+    refmin.addEventListener("click",function (){
+         ans.textContent = "Referees with minimum appearances: {{ minrefs }} with {{ mins }} appearances"
+    })
+
+</script>
 </html>
