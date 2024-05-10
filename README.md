@@ -12,7 +12,7 @@ This project aims to conduct in-depth statistical analysis of the Football Premi
 
 ## Installation
 1. Clone the repository:
-git clone https://github.com/yourusername/FPL_analysis.git
+git clone https://github.com/shashankkannan/FPL_analysis.git
 
 2. Install dependencies:
 pip install -r requirements.txt
